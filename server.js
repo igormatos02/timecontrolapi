@@ -20,7 +20,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 /*EMPLOYEE*/
 
 // Create a new employee record
-app.post('/employee', async (req, res) => {
+app.post('/api/employee', async (req, res) => {
     const { login, name } = req.body;
     
     const { data, error } = await supabase
@@ -36,7 +36,7 @@ app.post('/employee', async (req, res) => {
   });
   
   // Get all employee records with optional filters for login and name
-  app.get('/employee', async (req, res) => {
+  app.get('/api/employee', async (req, res) => {
     const { login, name } = req.query;
     let query = supabase.from('employee').select('*');
   
@@ -59,7 +59,7 @@ app.post('/employee', async (req, res) => {
   });
   
   // Get a specific employee record by ID
-  app.get('/employee/:id', async (req, res) => {
+  app.get('/api/employee/:id', async (req, res) => {
     const { id } = req.params;
     
     const { data, error } = await supabase
@@ -77,7 +77,7 @@ app.post('/employee', async (req, res) => {
   });
   
   // Update an employee record
-  app.put('/employee/:id', async (req, res) => {
+  app.put('/api/employee/:id', async (req, res) => {
     const { id } = req.params;
     const { login, name } = req.body;
   
@@ -95,7 +95,7 @@ app.post('/employee', async (req, res) => {
   });
   
   // Delete an employee record
-  app.delete('/employee/:id', async (req, res) => {
+  app.delete('/api/employee/:id', async (req, res) => {
     const { id } = req.params;
   
     const { data, error } = await supabase
@@ -118,7 +118,7 @@ app.post('/employee', async (req, res) => {
 
 
 // Get all attendance records with optional filters for date and employeeId
-app.get('/attendance', async (req, res) => {
+app.get('/api/attendance', async (req, res) => {
     const { date, employeeId } = req.query;
     let query = supabase.from('attendance').select('*');
   
@@ -140,7 +140,7 @@ app.get('/attendance', async (req, res) => {
     }
   });
 
-app.post('/attendance', async (req, res) => {
+app.post('/api/attendance', async (req, res) => {
     const { date, projectId, employeeId, observation } = req.body;
     
     const { data, error } = await supabase
@@ -157,7 +157,7 @@ app.post('/attendance', async (req, res) => {
 
 
 // Get all attendance records
-app.get('/attendance', async (req, res) => {
+app.get('/api/attendance', async (req, res) => {
     const { data, error } = await supabase
       .from('attendance')
       .select('*');
@@ -171,7 +171,7 @@ app.get('/attendance', async (req, res) => {
   });
   
   // Get a specific attendance record by ID
-  app.get('/attendance/:id', async (req, res) => {
+  app.get('/api/attendance/:id', async (req, res) => {
     const { id } = req.params;
     
     const { data, error } = await supabase
@@ -189,7 +189,7 @@ app.get('/attendance', async (req, res) => {
   });
   
   // Update an attendance record
-  app.put('/attendance/:id', async (req, res) => {
+  app.put('/api/attendance/:id', async (req, res) => {
     const { id } = req.params;
     const { date, projectId, employeeId, observation } = req.body;
   
@@ -207,7 +207,7 @@ app.get('/attendance', async (req, res) => {
   });
   
   // Delete an attendance record
-  app.delete('/attendance/:id', async (req, res) => {
+  app.delete('/api/attendance/:id', async (req, res) => {
     const { id } = req.params;
   
     const { data, error } = await supabase
@@ -226,7 +226,7 @@ app.get('/attendance', async (req, res) => {
 
 /* PROJECT*/
 // Create a new project record
-app.post('/project', async (req, res) => {
+app.post('/api/project', async (req, res) => {
     const { io, name, teamId } = req.body;
     
     const { data, error } = await supabase
@@ -242,7 +242,7 @@ app.post('/project', async (req, res) => {
   });
   
   // Get all project records with optional filters for io and name
-  app.get('/project', async (req, res) => {
+  app.get('/api/project', async (req, res) => {
     const { io, name } = req.query;
     let query = supabase.from('project').select('*');
   
@@ -265,7 +265,7 @@ app.post('/project', async (req, res) => {
   });
   
   // Get a specific project record by ID
-  app.get('/project/:id', async (req, res) => {
+  app.get('/api/project/:id', async (req, res) => {
     const { id } = req.params;
     
     const { data, error } = await supabase
@@ -283,7 +283,7 @@ app.post('/project', async (req, res) => {
   });
   
   // Update a project record
-  app.put('/project/:id', async (req, res) => {
+  app.put('/api/project/:id', async (req, res) => {
     const { id } = req.params;
     const { io, name, teamId } = req.body;
   
@@ -301,7 +301,7 @@ app.post('/project', async (req, res) => {
   });
   
   // Delete a project record
-  app.delete('/project/:id', async (req, res) => {
+  app.delete('/api/project/:id', async (req, res) => {
     const { id } = req.params;
   
     const { data, error } = await supabase
@@ -321,7 +321,7 @@ app.post('/project', async (req, res) => {
 /* TEAM*/
 
 // Create a new team record
-app.post('/team', async (req, res) => {
+app.post('/api/team', async (req, res) => {
     const { name } = req.body;
     
     const { data, error } = await supabase
@@ -337,7 +337,7 @@ app.post('/team', async (req, res) => {
   });
   
   // Get all team records with optional filters for name
-  app.get('/team', async (req, res) => {
+  app.get('/api/team', async (req, res) => {
     const { name } = req.query;
     let query = supabase.from('team').select('*');
   
@@ -356,7 +356,7 @@ app.post('/team', async (req, res) => {
   });
   
   // Get a specific team record by ID
-  app.get('/team/:id', async (req, res) => {
+  app.get('/api/team/:id', async (req, res) => {
     const { id } = req.params;
     
     const { data, error } = await supabase
@@ -374,7 +374,7 @@ app.post('/team', async (req, res) => {
   });
   
   // Update a team record
-  app.put('/team/:id', async (req, res) => {
+  app.put('/api/team/:id', async (req, res) => {
     const { id } = req.params;
     const { name } = req.body;
   
@@ -392,7 +392,7 @@ app.post('/team', async (req, res) => {
   });
   
   // Delete a team record
-  app.delete('/team/:id', async (req, res) => {
+  app.delete('/api/team/:id', async (req, res) => {
     const { id } = req.params;
   
     const { data, error } = await supabase
