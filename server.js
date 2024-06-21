@@ -2,7 +2,6 @@ import express from 'express';
 import { createClient } from '@supabase/supabase-js';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import axios from 'axios';
 dotenv.config();
 
 const app = express();
@@ -20,39 +19,19 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 // Retrieve a list of employees
 app.get('/api/employees', async (req, res) => {
    
-   /*const { data, error } = await supabase
+   const { data, error } = await supabase
         .from('employee')
         .select('*');
-     
        
     if (error) {
         console.error('Error retrieving data from Supabase:', error);
         res.status(500).json({ error: 'Internal server error' });
     } else {
         res.json({ data });
-    }*/
-    fetchEmployees().catch(error => {
-        console.error('Fetch employees failed:', error);
-      });
+    }
+   
    
 });
-async function fetchEmployees() {
-    try {
-        const response = await axios.get(`${supabaseUrl}/rest/v1/employee`, {
-          headers: {
-            "Content-Type":"application/json",
-            'Authorization': 'Bearer '+supabaseKey,
-            'apikey': supabaseKey
-          }
-        });
-    
-        console.log('Data:', response.data);
-        return response.data;
-      } catch (error) {
-        console.error('Fetch employees failed:', error.message);
-        throw error; // Re-throw the error to propagate it further if needed
-      }
-  }
 // Define routes
 // Retrieve data
 app.get('/api/employee/:id', async (req, res) => {
