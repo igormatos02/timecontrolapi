@@ -11,8 +11,8 @@ app.use(express.json());
 const PORT = process.env.PORT || 3000;
 
 // Initialize Supabase client
-const supabaseUrl = 'https://dovwuvpuhsxhbijaoifk.supabase.co'//process.env.SUPABASE_URL;
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRvdnd1dnB1aHN4aGJpamFvaWZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTg4MDM0MzksImV4cCI6MjAzNDM3OTQzOX0.weWDQedGCGXKU51VebpO_OCxUNiusgH9xSEZgwjjZO0';
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Define routes
