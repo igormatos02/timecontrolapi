@@ -1,5 +1,0 @@
-
-
-  curl -X GET 'https://dovwuvpuhsxhbijaoifk.supabase.co/rest/v1/employee' \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRvdnd1dnB1aHN4aGJpamFvaWZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTg4MDM0MzksImV4cCI6MjAzNDM3OTQzOX0.weWDQedGCGXKU51VebpO_OCxUNiusgH9xSEZgwjjZO0" \
-  -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRvdnd1dnB1aHN4aGJpamFvaWZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTg4MDM0MzksImV4cCI6MjAzNDM3OTQzOX0.weWDQedGCGXKU51VebpO_OCxUNiusgH9xSEZgwjjZO0"
