@@ -176,7 +176,7 @@ app.post('/api/attendance', async (req, res) => {
     }
   
     try {
-      const { data, error } = await supabase
+      /*const { data, error } = await supabase
       .from('project')
       .select(`
         io,
@@ -193,7 +193,15 @@ app.post('/api/attendance', async (req, res) => {
       .eq('report.employeeId', employeeId)
       .eq('report.year', year)
       .eq('report.month', month)
-      .eq('project.teamId', teamId);
+      .eq('project.teamId', teamId);*/
+      const { data, error } = await supabase
+      .rpc('get_report_data', {
+        p_team_id: teamId,
+        p_employee_id: employeeId,
+        p_year: year,
+        p_month: month
+      });
+  
   
       if (error) {
         console.error('Error fetching data:', error);
