@@ -157,6 +157,39 @@ app.post('/api/attendance', async (req, res) => {
 
 
 // Get all attendance records
+app.get('/api/report/:teamId/:employeeId/:year/:month', async (req, res) => {
+
+  const { teamId,employeeId,year,month } = req.params;
+
+  const { data, error } = await supabase
+    .from('project')
+    .select(`
+      io,
+      name:project,
+      team:team!inner(name),
+      employee:employee!inner(name),
+      report!left(year, month, total)
+    `)
+    .leftJoin('report', 'report.projectId', 'project.id')
+    .leftJoin('employee_team', 'employee_team.teamId', 'project.teamId')
+    .leftJoin('team', 'team.id', 'project.teamId')
+    .leftJoin('employee', 'employee_team.employeeId', 'employee.id')
+    .eq('report.teamId', teamId)
+    .eq('report.employeeId', employeeId)
+    .eq('report.year', year)
+    .eq('report.month', month)
+    .eq('project.teamId', teamId)
+    .eq('employee_team.employeeId', employeeId)
+
+  if (error) {
+    console.error(error)
+    return
+  }
+
+  console.log(data)
+});
+
+
 app.get('/api/attendance', async (req, res) => {
     const { data, error } = await supabase
       .from('attendance')
