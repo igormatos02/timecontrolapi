@@ -156,39 +156,56 @@ app.post('/api/attendance', async (req, res) => {
   });
 
 
-// Get all attendance records
-app.get('/api/report/:teamId/:employeeId/:year/:month', async (req, res) => {
 
-  const { teamId,employeeId,year,month } = req.params;
-
-  const { data, error } = await supabase
-    .from('project')
-    .select(`
-      io,
-      name:project,
-      team:team!inner(name),
-      employee:employee!inner(name),
-      report!left(year, month, total)
-    `)
-    .leftJoin('report', 'report.projectId', 'project.id')
-    .leftJoin('employee_team', 'employee_team.teamId', 'project.teamId')
-    .leftJoin('team', 'team.id', 'project.teamId')
-    .leftJoin('employee', 'employee_team.employeeId', 'employee.id')
-    .eq('report.teamId', teamId)
-    .eq('report.employeeId', employeeId)
-    .eq('report.year', year)
-    .eq('report.month', month)
-    .eq('project.teamId', teamId)
-    .eq('employee_team.employeeId', employeeId)
-
-  if (error) {
-    console.error(error)
-    return
-  }
-
-  console.log(data)
-});
-
+  app.get('/api/report/:teamId/:employeeId/:year/:month', async (req, res) => {
+    // Extract parameters from req.params
+    const { teamId, employeeId, year, month } = req.params;
+  
+    // Validate and sanitize inputs
+    if (!teamId || isNaN(teamId)) {
+      return res.status(400).json({ error: 'Invalid teamId' });
+    }
+    if (!employeeId || isNaN(employeeId)) {
+      return res.status(400).json({ error: 'Invalid employeeId' });
+    }
+    if (!year || isNaN(year)) {
+      return res.status(400).json({ error: 'Invalid year' });
+    }
+    if (!month || isNaN(month)) {
+      return res.status(400).json({ error: 'Invalid month' });
+    }
+  
+    try {
+      const { data, error } = await supabase
+      .from('project')
+      .select(`
+        io,
+        name:project,
+        team:team!inner(name),
+        employee:employee!inner(name),
+        report!left(year, month, total)
+      `)
+      .leftJoin('report', 'report.projectId', 'project.id')
+      .leftJoin('employee_team', 'employee_team.teamId', 'project.teamId')
+      .leftJoin('team', 'team.id', 'project.teamId')
+      .leftJoin('employee', 'employee_team.employeeId', 'employee.id')
+      .eq('report.teamId', teamId)
+      .eq('report.employeeId', employeeId)
+      .eq('report.year', year)
+      .eq('report.month', month)
+      .eq('project.teamId', teamId);
+  
+      if (error) {
+        console.error('Error fetching data:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+  
+      res.json(data);
+    } catch (error) {
+      console.error('Unexpected error:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
 
 app.get('/api/attendance', async (req, res) => {
     const { data, error } = await supabase
